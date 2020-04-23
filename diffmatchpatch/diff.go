@@ -1252,6 +1252,24 @@ func (dmp *DiffMatchPatch) DiffPrettyText(diffs []Diff) string {
 	return buff.String()
 }
 
+// WordCounts Counts the number words per diff, in order to get a word count of
+// the nubmer of inserted, deleted and resused words
+func (dmp *DiffMatchPatch) WordCounts(diffs []Diff) (countOfInserted int, countOfDeleted int, countOfEqual int) {
+	for _, diff := range diffs {
+		text := diff.Text
+		strLen := len(strings.Fields(text))
+		switch diff.Type {
+		case DiffInsert:
+			countOfInserted += strLen
+		case DiffDelete:
+			countOfDeleted += strLen
+		case DiffEqual:
+			countOfEqual += strLen
+		}
+	}
+	return countOfInserted, countOfDeleted, countOfEqual
+}
+
 // DiffText1 computes and returns the source text (all equalities and deletions).
 func (dmp *DiffMatchPatch) DiffText1(diffs []Diff) string {
 	//StringBuilder text = new StringBuilder()
