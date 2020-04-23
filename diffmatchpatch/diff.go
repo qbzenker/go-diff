@@ -419,7 +419,7 @@ func (dmp *DiffMatchPatch) diffLinesToRunesMunge(text string, lineArray *[]strin
 	runes := []rune{}
 
 	for lineEnd < len(text)-1 {
-		lineEnd = indexOf(text, "\n", lineStart)
+		lineEnd = indexOf(text, " ", lineStart)
 
 		if lineEnd == -1 {
 			lineEnd = len(text) - 1
